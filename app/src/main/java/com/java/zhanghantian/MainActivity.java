@@ -4,6 +4,9 @@ package com.java.zhanghantian;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -18,28 +21,11 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.*;
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
-    MagicIndicator magicIndicator;
-    ViewPager mViewPager;
-    List<String> mTitleDataList;
     List<Fragment>fragmentList;
-    EditText searchText;
     NewsFragment newsFragment; //新闻界面
     DataFragment dataFragment; //疫情数据界面
     ScholarFragment scholarFragment; //学者界面
@@ -50,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
     RadioButton tabData; //疫情数据界面按钮
     RadioButton tabEntity; //实体搜索界面按钮
     RadioButton tabScholar; //学者界面按钮
+    FragmentManager fm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,30 +56,29 @@ public class MainActivity extends AppCompatActivity{
 
     void setFragment()
     {
-        final FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
         final FragmentTransaction transaction = fm.beginTransaction();
         tabGroup.check(R.id.tab_news);
         newsFragment = new NewsFragment();
-        transaction.add(R.id.frameLayout, newsFragment);
-        hideOthersFragment(newsFragment, true, transaction, fm);
+        fragmentList.add(newsFragment);
+        hideOthersFragment(newsFragment, true);
         tabGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
                     case R.id.tab_news:
-                        transaction.add(R.id.frameLayout, newsFragment);
-                        hideOthersFragment(newsFragment, false, transaction, fm);
+                        hideOthersFragment(newsFragment, false);
                         break;
                     case R.id.tab_data:
                         if(dataFragment == null)
                         {
                             dataFragment = new DataFragment();
                             fragmentList.add(dataFragment);
-                            hideOthersFragment(dataFragment, true, transaction, fm);
+                            hideOthersFragment(dataFragment, true);
                         }
                         else
                         {
-                            hideOthersFragment(dataFragment, false, transaction, fm);
+                            hideOthersFragment(dataFragment, false);
                         }
                         break;
                     case R.id.tab_entity:
@@ -100,11 +86,11 @@ public class MainActivity extends AppCompatActivity{
                         {
                             entityFragment = new EntityFragment();
                             fragmentList.add(entityFragment);
-                            hideOthersFragment(entityFragment, true, transaction, fm);
+                            hideOthersFragment(entityFragment, true);
                         }
                         else
                         {
-                            hideOthersFragment(entityFragment, false, transaction, fm);
+                            hideOthersFragment(entityFragment, false);
                         }
                         break;
                     case R.id.tab_scholar:
@@ -112,11 +98,11 @@ public class MainActivity extends AppCompatActivity{
                         {
                             scholarFragment = new ScholarFragment();
                             fragmentList.add(scholarFragment);
-                            hideOthersFragment(scholarFragment, true, transaction, fm);
+                            hideOthersFragment(scholarFragment, true);
                         }
                         else
                         {
-                            hideOthersFragment(scholarFragment, false, transaction, fm);
+                            hideOthersFragment(scholarFragment, false);
                         }
                         break;
 
@@ -124,8 +110,8 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-    void hideOthersFragment(Fragment showFragment, boolean add, FragmentTransaction transaction, FragmentManager fm) {
-        transaction = fm.beginTransaction();
+    void hideOthersFragment(Fragment showFragment, boolean add) {
+        FragmentTransaction transaction = fm.beginTransaction();
         if (add) {
             transaction.add(R.id.frameLayout, showFragment);
         }
@@ -141,5 +127,17 @@ public class MainActivity extends AppCompatActivity{
     }
 
     
+    //检查网络连接，但目前还没有写好，不要用
+    public boolean checkConnection()
+    {
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().
+                getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager == null) return false;
+        NetworkInfo network = manager.getActiveNetworkInfo();
+
+        if(network==null || !network.isAvailable())return false;
+
+        return true;
+    }
 
 }

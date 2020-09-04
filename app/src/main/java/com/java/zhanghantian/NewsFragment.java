@@ -37,10 +37,15 @@ public class NewsFragment extends Fragment {
     {
         View view = inflater.inflate(R.layout.news_fragment, null);
         mTitleDataList = new ArrayList<String>();
+        //新闻分类标签
         mTitleDataList.add("全部"); mTitleDataList.add("新闻"); mTitleDataList.add("论文");
+        //不同标签下的新闻列表视图
         mViewPager = (ViewPager)view.findViewById(R.id.view_pager);
+        //翻页指示器
         magicIndicator = (MagicIndicator)view.findViewById(R.id.magic_indicator);
+        //将翻页指示器与新闻列表视图绑定
         setMagicIndicator(view);
+        //设置新闻列表视图
         setmViewPager(view);
 
         return view;

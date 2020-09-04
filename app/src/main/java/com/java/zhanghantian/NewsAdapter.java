@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-class ViewHolder
+
+
+class NewsViewHolder
 {
     public TextView item_tv_time;
     public TextView item_tv_from;
@@ -46,10 +48,10 @@ public class NewsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        NewsViewHolder viewHolder;
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.layout_item, null);
-            viewHolder = new ViewHolder();
+            viewHolder = new NewsViewHolder();
             viewHolder.item_img_icon = (ImageView) convertView.findViewById(R.id.item_img_icon);
             ;
             viewHolder.item_tv_des = (TextView) convertView.findViewById(R.id.item_tv_des);
@@ -58,7 +60,7 @@ public class NewsAdapter extends BaseAdapter {
             viewHolder.item_tv_time = (TextView) convertView.findViewById(R.id.item_tv_time);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (NewsViewHolder) convertView.getTag();
         }
         NewsBean newsBean = mDatas.get(position);
         //viewHolder.item_img_icon.set
