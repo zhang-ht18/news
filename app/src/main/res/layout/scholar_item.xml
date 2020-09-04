@@ -3,7 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.widget.ImageView
+    <com.java.zhanghantian.MyImageView
         android:id="@+id/scholar_icon"
         android:layout_width="68dp"
         android:layout_height="68dp"
