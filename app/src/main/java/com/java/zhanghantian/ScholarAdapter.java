@@ -1,15 +1,17 @@
 package com.java.zhanghantian;
 
 import java.util.List;
+import java.util.logging.LogRecord;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.appcompat.widget.AppCompatImageView;
 class ScholarViewHolder
 {
     public TextView scholarName;
@@ -17,13 +19,14 @@ class ScholarViewHolder
     public TextView scholarIntro;
     public TextView scholarPosition;
     public TextView scholarAffiliation;
-    public ImageView scholarIcon;
+    public MyImageView scholarIcon;
 }
 
 
 public class ScholarAdapter extends BaseAdapter{
     private LayoutInflater mLayoutInflater;
     private List<ScholarBean> mDatas;
+
     public ScholarAdapter(Context context, List<ScholarBean> newsList) {
         this.mLayoutInflater = LayoutInflater.from(context);
         this.mDatas = newsList;
@@ -51,7 +54,7 @@ public class ScholarAdapter extends BaseAdapter{
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.scholar_item, null);
             viewHolder = new ScholarViewHolder();
-            viewHolder.scholarIcon = (ImageView) convertView.findViewById(R.id.scholar_icon);
+            viewHolder.scholarIcon = (MyImageView) convertView.findViewById(R.id.scholar_icon);
 
             viewHolder.scholarName = (TextView) convertView.findViewById(R.id.scholar_name);
             viewHolder.scholarData = (TextView) convertView.findViewById(R.id.scholar_data);
@@ -63,7 +66,7 @@ public class ScholarAdapter extends BaseAdapter{
             viewHolder = (ScholarViewHolder) convertView.getTag();
         }
         ScholarBean scholarBean = mDatas.get(position);
-        //viewHolder.scholarIcon.setImageBitmap(scholarBean.getIcon());
+        viewHolder.scholarIcon.setImageUrl(scholarBean.getIcon());
         viewHolder.scholarName.setText(scholarBean.getName());
         viewHolder.scholarIntro.setText("简介："+scholarBean.getIntro());
         viewHolder.scholarPosition.setText("学位："+scholarBean.getPostion());

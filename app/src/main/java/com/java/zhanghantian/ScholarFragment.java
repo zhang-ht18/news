@@ -102,7 +102,6 @@ public class ScholarFragment  extends Fragment {
     public void setScholarListView(View mView)
     {
         scholarAdapter = new ScholarAdapter(mView.getContext(), scholarBeanList);
-        System.out.println(scholarBeanList.size());
         scholarListView.setAdapter(scholarAdapter);
     }
 
