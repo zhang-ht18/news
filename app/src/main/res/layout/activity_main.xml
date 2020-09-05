@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_linera"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/tab_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/tab_news"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/tab_data"
+            android:text="数据"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/tab_entity"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="实体" />
+
+        <RadioButton
+            android:id="@+id/tab_scholar"
+            android:layout_width="87dp"
+            android:layout_height="wrap_content"
+            android:text="学者" />
+    </RadioGroup>
+
+</LinearLayout>
+    <!--<android.widget.LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <android.widget.EditText
+            android:id="@+id/search_test"
+            android:layout_width="364dp"
+            android:layout_height="match_parent"
+            android:text="搜索" />
+        <android.widget.Button
+            android:id="@+id/search_button"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:text="Go"
+            />
+    </android.widget.LinearLayout>
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+-->
