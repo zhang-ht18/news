@@ -32,7 +32,7 @@ import okhttp3.Response;
 public class EntityFragment extends Fragment {
     EditText editText;
     Button button;
-    String url;
+    public String url;
     List<EntityBean>entityBeanList;
     ExpandableListView entityList;
     EntityAdapter entityAdapter;
@@ -49,7 +49,7 @@ public class EntityFragment extends Fragment {
             @Override
             public void onClick(final View view)
             {
-                entityBeanList.clear();
+
                 String searchText = url+"?entity="+editText.getText().toString();
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url(searchText).build();
@@ -75,39 +75,42 @@ public class EntityFragment extends Fragment {
                                 JSONObject jsonObject = JSON.parseObject(responseText);
                                 JSONArray dataArray = jsonObject.getJSONArray("data");
                                 if(dataArray.size() == 0)Toast.makeText(view.getContext(),"没有查询到",Toast.LENGTH_SHORT).show();
-                                for(int i=0;i<dataArray.size();i++)
+                                else
                                 {
+                                    entityBeanList.clear();
+                                for(int i=0;i<dataArray.size();i++) {
                                     JSONObject object = dataArray.getJSONObject(i);
                                     String label = object.getString("label");
                                     String imgUrl = object.getString("img");
+                                    if (imgUrl == null) imgUrl = "";
                                     JSONObject abstractInfo = object.getJSONObject("abstractInfo");
                                     String intro = abstractInfo.getString("baidu");
-                                    if(intro.equals("")) intro = abstractInfo.getString("zhwiki");
-                                    if(intro.equals("")) intro = abstractInfo.getString("enwiki");
+                                    if (intro.equals("")) intro = abstractInfo.getString("zhwiki");
+                                    if (intro.equals("")) intro = abstractInfo.getString("enwiki");
                                     JSONObject COVID = abstractInfo.getJSONObject("COVID");
                                     JSONObject properties = COVID.getJSONObject("properties");
-                                    List<String>properties_a = new ArrayList<>();
-                                    List<String>properties_b = new ArrayList<>();
-                                    for(Object e : properties.entrySet())
-                                    {
-                                        Map.Entry<String,String>entry = (Map.Entry<String,String>)e;
+                                    List<String> properties_a = new ArrayList<>();
+                                    List<String> properties_b = new ArrayList<>();
+                                    for (Object e : properties.entrySet()) {
+                                        Map.Entry<String, String> entry = (Map.Entry<String, String>) e;
                                         properties_a.add(entry.getKey());
                                         properties_b.add(entry.getValue());
                                     }
                                     JSONArray relations = COVID.getJSONArray("relations");
-                                    List<String>relation = new ArrayList<>();
-                                    List<Boolean>forward = new ArrayList<>();
-                                    List<String>relationLabel = new ArrayList<>();
-                                    for(int j=0;j<relations.size();j++)
-                                    {
+                                    List<String> relation = new ArrayList<>();
+                                    List<Boolean> forward = new ArrayList<>();
+                                    List<String> relationLabel = new ArrayList<>();
+                                    for (int j = 0; j < relations.size(); j++) {
                                         JSONObject temp = relations.getJSONObject(j);
                                         relation.add(temp.getString("relation"));
                                         forward.add(temp.getBoolean("forward"));
                                         relationLabel.add(temp.getString("label"));
                                     }
-                                    EntityBean entityBean = new EntityBean(label,intro,imgUrl,properties_a,properties_b,
-                                            relation,forward,relationLabel);
+                                    EntityBean entityBean = new EntityBean(label, intro, imgUrl, properties_a, properties_b,
+                                            relation, forward, relationLabel);
                                     entityBeanList.add(entityBean);
+                                    entityAdapter.notifyDataSetChanged();
+                                }
                                 }
                             }
                         }));
