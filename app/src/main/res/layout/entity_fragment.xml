@@ -21,9 +21,12 @@
             android:text="go"
             />
     </LinearLayout>
+
     <ExpandableListView
+        android:id="@+id/entity_search_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/entity_search_list"
-        ></ExpandableListView>
+        android:groupIndicator="@null"
+        android:layoutDirection="rtl">
+    </ExpandableListView>
 </LinearLayout>
