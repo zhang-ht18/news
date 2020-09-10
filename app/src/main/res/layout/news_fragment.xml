@@ -3,30 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="20dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="20dp"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    <android.widget.LinearLayout
+    <android.widget.RelativeLayout
         android:id="@+id/search_layout"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_width="match_parent"
         android:orientation="horizontal">
 
         <android.widget.EditText
             android:id="@+id/search_test"
-            android:layout_width="364dp"
+            android:layout_alignRight ="@id/search_button"
+            android:layout_alignParentLeft ="true"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="搜索" />
         <android.widget.Button
             android:id="@+id/search_button"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:text="Go"
             />
-    </android.widget.LinearLayout>
+    </android.widget.RelativeLayout>
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"
         android:layout_width="match_parent"
